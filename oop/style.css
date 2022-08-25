@@ -1,0 +1,14 @@
+* {
+    padding: 0;
+    margin: 0;
+    color: black;
+    text-decoration: none;
+    list-style: none;
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0 auto;
+    padding-inline: 100px;
+    padding-block: 20px;
+}
