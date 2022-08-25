@@ -4,17 +4,24 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
         <title>Document</title>
     </head>
     <body>
-        <h1>counter: </h1>
-        <h3 class="counter">number</h3>
+        <section class="counter">
 
-        <input type="button" class="counter__plus counter__button" value="+">
-        <input type="button" class="counter__minus counter__button" value="-">
-        <input type="button" class="counter__reset counter__button" value="Reset">
+            <span>counter:</span>
+            <span class="span_counter">0</span>
+
+            <form action="">
+                <input class="btn_plus" type="button" value="+">
+                <input class="btn_minus" type="button" value="-">
+                <input class="btn_reset" type="button" value="Reset">
+            </form>
+
+        </section>
 
 
-        <script src="script.js"></script>
+        <script src="scriptv2.js"></script>
     </body>
 </html>

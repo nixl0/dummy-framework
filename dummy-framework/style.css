@@ -4,9 +4,20 @@
     padding: 0;
 }
 
-#message {
-    text-transform: uppercase;
-    background-color: red;
-    color: white;
-    margin-block: 10px;
+body {
+    margin: 0 auto;
+    width: 400px;
+}
+
+input[type=button] {
+    padding-block: 10px;
+    padding-inline: 15px;
+}
+
+.span_counter {
+    margin-top: 15px;
+}
+
+.counter {
+    margin-top: 20px;
 }
