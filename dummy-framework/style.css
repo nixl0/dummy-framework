@@ -1,0 +1,12 @@
+* {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#message {
+    text-transform: uppercase;
+    background-color: red;
+    color: white;
+    margin-block: 10px;
+}

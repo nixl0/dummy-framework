@@ -1,0 +1,51 @@
+@import './reset';
+@import './variables';
+@import './functions';
+
+body {
+    background-color: $background2;
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 1000px;
+}
+
+header {
+    background-color: $background1;
+    height: 100px;
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+    
+        &__logo {
+            flex: 1;
+        }
+    
+        &__search {
+            flex: 2;
+            @include flexCenter;
+
+            #search {
+                background-color: $background3;
+                height: 35px;
+                width: 400px;
+                padding: 0 20px;
+                border: none;
+                border-radius: 20px;
+                color: $accent;
+                outline: none;
+            }
+        }
+    
+        &__options {
+            flex: 1;
+        }
+    }
+}
+
+content {
+    background-color: darkslategray;
+}
