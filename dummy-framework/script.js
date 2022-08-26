@@ -1,6 +1,4 @@
-import Framework from './framework.js'
-
-const framework = new Framework()
+import { bind, render } from './framework.js'
 
 const spanCounter = document.querySelector('.span_counter')
 const btnPlus = document.querySelector('.btn_plus')
@@ -21,24 +19,24 @@ function reset() {
     return 0
 }
 
-framework.setBind(spanCounter, counter)
+bind(spanCounter, counter)
 
 // обновляет забайнденные элементы согласно присвоенным им значеням выше
 window.addEventListener('load', () => {
-    framework.render(counter)
+    render(counter)
 })
 
 btnPlus.addEventListener('click', () => {
     counter = increment(counter)
-    framework.render(counter)
+    render(counter)
 })
 
 btnMinus.addEventListener('click', () => {
     counter = decrement(counter)
-    framework.render(counter)
+    render(counter)
 })
 
 btnReset.addEventListener('click', () => {
     counter = reset()
-    framework.render(counter)
+    render(counter)
 })
