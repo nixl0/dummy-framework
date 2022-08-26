@@ -1,20 +1,27 @@
-let bindings = {}
+export default class Framework {
 
-function bind(element, value) {
-    // объекту bindings добавляется элемент, где 
-    // в качестве ключевого значения присваивается название класса элемента
-    // а в качестве значения присваивается массив из объекта и нового значения
+    constructor(bindings = []) {
+        this.bindings = bindings
+    }
 
-    bindings[element.className] = [element, value]
-}
+    get getBind() {
+        return this.bindings
+    }
 
-function render(value, callable = null) {
-    callable && callable()
+    setBind(element, value) {
+        // объекту bindings добавляется элемент, где
+        // в качестве ключевого значения присваивается название класса элемента
+        // а в качестве значения присваивается массив из объекта и нового значения
 
-    for (let key in bindings) {
-        let [element, _] = bindings[key]
-        element.innerHTML = value
+        this.bindings[element.className] = [element, value]
+    }
+
+    render(value, callable = null) {
+        callable && callable()
+
+        for (let key in this.bindings) {
+            let [element, _] = this.bindings[key]
+            element.innerHTML = value
+        }
     }
 }
-
-export { bind, render }
