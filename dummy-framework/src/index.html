@@ -11,7 +11,7 @@
         <section class="counter">
 
             <span>counter:</span>
-            <span class="span_counter">0</span>
+            <span id="span_counter">0</span>
 
             <form action="">
                 <input class="btn_plus" type="button" value="+">
@@ -21,7 +21,13 @@
 
         </section>
 
+        <!-- сюда будут рендериться компоненты -->
+        <div id="root"></div>
 
+        <!-- первый скрипт рендерит корневой компонент приложения в элемент root -->
         <script type="module" src="script.js"></script>
+        <!-- TODO: сделать загрузку скриптов для каждого компонента отдельно -->
+        <!-- для второго компонента корневым компонентом уже будет наш компонент -->
+        <!-- <script type="module" src="calculator.js"></script> -->
     </body>
 </html>

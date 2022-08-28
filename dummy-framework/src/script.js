@@ -1,6 +1,6 @@
 import { bind, render } from './framework.js'
 
-const spanCounter = document.querySelector('.span_counter')
+const spanCounter = document.getElementById('span_counter')
 const btnPlus = document.querySelector('.btn_plus')
 const btnMinus = document.querySelector('.btn_minus')
 const btnReset = document.querySelector('.btn_reset')
@@ -22,7 +22,7 @@ function reset() {
 bind(spanCounter, counter)
 
 // обновляет забайнденные элементы согласно присвоенным им значеням выше
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
     render(counter)
 })
 
