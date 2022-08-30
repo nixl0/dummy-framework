@@ -20,6 +20,20 @@ root.render(div_root, `
 </ul>
 `)
 
+const authForm = new Component()
+
+authForm.track(div_root)
+authForm.render(div_root, `
+    <div id="auth-form">
+        <label>Authorization form</label>
+        <p>Email:</p>
+        <input class="auth-form__email-input"/>
+        <p>Password:</p>
+        <input type="password" class="auth-form__password-input"/>
+        <input type="submit" class="auth-form__submit-button"/>
+    </div>
+`)
+
 
 
 // header

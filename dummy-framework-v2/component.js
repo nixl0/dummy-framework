@@ -1,3 +1,6 @@
+import Validator from "./validator/validator.js"
+const validator = new Validator()
+
 class Component {
     trackables = []
 
@@ -8,7 +11,7 @@ class Component {
     render(element, value) {
         this.trackables.forEach(trackable => {
             if (trackable.id === element.id) {
-                trackable.innerHTML = value
+                trackable.insertAdjacentHTML('beforeend', value)
             }
         })
     }
