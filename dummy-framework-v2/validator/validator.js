@@ -9,68 +9,99 @@
 // возвращать массив ошибок либо первую из ошибок
 // если все можно использовать метод every
 
-import config from './config.js'
-
 export default class Validator {
-    constructor() {
-
-        this.passwordPattern = ""
-        this.emailPattern = ""
-
+    constructor(config) {
+        this.config = config
+        this.fieldPatterns = {
+            add(pattern) {
+                [].push.call(this, pattern)
+            }
+        }
         this.mistakes = {
             add(mistake) {
                 [].push.call(this, mistake)
             }
         }
-        this.trackedFormElement = this.getIdOrClass(config.emailMustContain.trackedFormElement)
-        
-        this.emailProcessing(config.emailMustContain.trackedElement)
+        this.trackedFormElement = this.getIdOrClass(config.trackedFormElement)
+
+        if(this.trackedFormElement === null) this.mistakes.add({isFormNotFound: true})
     }
 
     getIdOrClass(element) {
         let elementId = document.getElementById(element)
         let elementClass = document.querySelector(`.${element}`)
-        if(elementId === elementClass === null) {
-            this.mistakes.add(isElementNotFound)
-            return null
-        }
-        else if(elementId === null) {
+        if(elementId === null && elementClass !== null) {
             return elementClass
         }
-        return elementId
+        else if(elementClass === null) {
+            return elementId
+        }
+        return null
     }
 
     localizeMistakes(mistakes) {
 
     }
 
-    submitForm(trackedForm) {
+    validateForm(trackedForm) {
 
     }
 
-    emailProcessing(element) {
-        if(config.emailMustContain.ignore) return null
-
-        this.emailPattern = this.generateEmailRegexp(config.emailMustContain)
+    fieldsProcessing(element) {
+        this.emailPattern = this.generateRegExp(config.emailMustContain)
         
         if(element.match(this.emailPattern) === null) {
             return
         }
     }
 
-    generateEmailRegexp(emailMustContain) {
-        let alphabet = "A-Za-z"
+    generateRegExp(fieldRules) {
+        const specifiedEmailCharacters = "._+-"
+        let alphabet = "a-z"
+        let alphabetCyrillic = "а-я"
+        let specifiedCharacters = ""
+        let emailAddExp = ""
+        let lengthLimits = ""
 
-        let allowCyrillic = emailMustContain.allowCyrillic
-        let allowDigits = emailMustContain.allowDigits
-        let minLength = emailMustContain.minLength
-        let maxLength = emailMustContain.maxLength
+        let minLength = fieldRules.minLength ? fieldRules.minLength : ""
+        let maxLength = fieldRules.maxLength ? fieldRules.maxLength : ""
 
+        if(minLength || maxLength) lengthLimits = `{${minLength},${maxLength}}`
 
-        if(allowCyrillic) alphabet = alphabet.concat("А-Яа-я")
-        if(allowDigits) alphabet = alphabet.concat("0-9")
+        alphabet = alphabet.concat(fieldRules.allowUppercase ? alphabet.toUpperCase() : "")
 
-        return new RegExp(`(^[${alphabet}._+-]{${minLength},${maxLength}})+@[${alphabet}.-]+.[${alphabet}]{2,4}$`)
+        if(fieldRules.allowCyrillic) {
+            alphabet = alphabet.concat(alphabetCyrillic)
+            alphabet = alphabet.concat(fieldRules.allowUppercase ? alphabetCyrillic.toUpperCase() : "")
+        }
+
+        alphabet = alphabet.concat(fieldRules.allowDigits ? "0-9" : "")
+
+        if(fieldRules.isEmailField) {
+            emailAddExp = `+@[${alphabet}.-]+.[${alphabet}]{2,4}`
+            specifiedCharacters = specifiedCharacters.concat(specifiedEmailCharacters)
+        }
+        if(fieldRules.specifiedCharacters.length) {
+            specifiedCharacters = specifiedCharacters.concat(
+                removeCharacterDuplication(
+                    specifiedEmailCharacters, 
+                    fieldRules.customSpecifiedCharacters,
+                    true
+                ) 
+            )
+        }
+        return new RegExp(`(^[${alphabet}${specifiedCharacters}])${emailAddExp}$`)
     }
-    
+
+    removeCharacterDuplication(reservedCharacters, specifiedCharacters, checkBothStrings=false) {
+        /**
+         * input: 23456, 2789181
+         * output: 7891
+         */
+
+        let result = [...specifiedCharacters].filter((s, n, a) =>
+            !reservedCharacters.includes(s) && (checkBothStrings ? a.indexOf(s) === n : true))
+
+        return result.toString().replace(/\,/g, "")
+    }
 }
