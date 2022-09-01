@@ -56,10 +56,10 @@ let validatorConfig = {
                 minDigits: 1,
                 minSpecifiedCharacters: 1
             },
-            customSpecifiedCharactersAvailable: "+-.{}<>"
+            customSpecifiedCharacters: "+-.{}<>"
         }
     },
     returnedMistakes: "all"
 }
 
-export default config
+export default validatorConfig
